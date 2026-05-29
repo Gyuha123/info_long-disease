@@ -1,34 +1,27 @@
 
 # app.py
-# 실행 명령어:
+# 실행:
 # streamlit run app.py
 
 import streamlit as st
 import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
-import seaborn as sns
-import matplotlib
 import matplotlib.font_manager as fm
-import platform
+import seaborn as sns
 
 # -----------------------------
-# 한글 폰트 설정
+# 한글 폰트 강제 설정
 # -----------------------------
-if platform.system() == "Windows":
-    plt.rcParams["font.family"] = "Malgun Gothic"
+font_path = "C:/Windows/Fonts/malgun.ttf"
 
-elif platform.system() == "Darwin":
-    plt.rcParams["font.family"] = "AppleGothic"
+font_prop = fm.FontProperties(fname=font_path)
 
-else:
-    plt.rcParams["font.family"] = "NanumGothic"
+plt.rc("font", family=font_prop.get_name())
 
-# 마이너스 깨짐 방지
 plt.rcParams["axes.unicode_minus"] = False
 
-# seaborn 폰트 적용
-sns.set(font=plt.rcParams["font.family"])
+sns.set(font=font_prop.get_name())
 
 # -----------------------------
 # 페이지 설정
@@ -55,11 +48,10 @@ SCALER_PATH = "longdisease-scaler.pkl"
 # -----------------------------
 df = pd.read_csv(CSV_PATH)
 
-# 컬럼 공백 제거
 df.columns = df.columns.str.strip()
 
 # -----------------------------
-# 모델 / 스케일러 불러오기
+# 모델 / 스케일러 로드
 # -----------------------------
 model = joblib.load(MODEL_PATH)
 
@@ -73,7 +65,7 @@ st.subheader("📄 데이터 미리보기")
 st.dataframe(df.head())
 
 # -----------------------------
-# 사이드바 입력
+# 사용자 입력
 # -----------------------------
 st.sidebar.header("🧪 사용자 입력")
 
@@ -147,7 +139,7 @@ else:
     st.info(f"예측 군집: {cluster}")
 
 # -----------------------------
-# 입력 데이터 출력
+# 사용자 입력 데이터 출력
 # -----------------------------
 st.subheader("📌 사용자 입력 데이터")
 
@@ -188,7 +180,21 @@ with tab1:
         label="사용자"
     )
 
-    ax.set_title("흡연 여부 vs 나이")
+    ax.set_title(
+        "흡연 여부 vs 나이",
+        fontproperties=font_prop,
+        fontsize=18
+    )
+
+    ax.set_xlabel(
+        "흡연 여부",
+        fontproperties=font_prop
+    )
+
+    ax.set_ylabel(
+        "나이",
+        fontproperties=font_prop
+    )
 
     st.pyplot(fig)
 
@@ -216,7 +222,21 @@ with tab2:
         label="사용자"
     )
 
-    ax.set_title("음주 여부 vs 가슴 통증")
+    ax.set_title(
+        "음주 여부 vs 가슴 통증",
+        fontproperties=font_prop,
+        fontsize=18
+    )
+
+    ax.set_xlabel(
+        "음주 여부",
+        fontproperties=font_prop
+    )
+
+    ax.set_ylabel(
+        "가슴 통증",
+        fontproperties=font_prop
+    )
 
     st.pyplot(fig)
 
@@ -236,7 +256,11 @@ with tab3:
         ax=ax
     )
 
-    ax.set_title("상관관계 분석")
+    ax.set_title(
+        "상관관계 분석",
+        fontproperties=font_prop,
+        fontsize=18
+    )
 
     st.pyplot(fig)
 
