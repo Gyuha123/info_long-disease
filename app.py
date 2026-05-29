@@ -9,21 +9,27 @@ import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib
+import matplotlib.font_manager as fm
 import platform
 
 # -----------------------------
 # 한글 폰트 설정
 # -----------------------------
-if platform.system() == 'Windows':
-    matplotlib.rc('font', family='Malgun Gothic')
+if platform.system() == "Windows":
+    plt.rcParams["font.family"] = "Malgun Gothic"
 
-elif platform.system() == 'Darwin':
-    matplotlib.rc('font', family='AppleGothic')
+elif platform.system() == "Darwin":
+    plt.rcParams["font.family"] = "AppleGothic"
 
 else:
-    matplotlib.rc('font', family='NanumGothic')
+    plt.rcParams["font.family"] = "NanumGothic"
 
-matplotlib.rcParams['axes.unicode_minus'] = False
+# 마이너스 깨짐 방지
+plt.rcParams["axes.unicode_minus"] = False
+
+# seaborn 폰트 적용
+sns.set(font=plt.rcParams["font.family"])
+
 # -----------------------------
 # 페이지 설정
 # -----------------------------
@@ -235,7 +241,7 @@ with tab3:
     st.pyplot(fig)
 
 # -----------------------------
-# 통계
+# 통계 정보
 # -----------------------------
 st.subheader("📈 데이터 통계")
 
