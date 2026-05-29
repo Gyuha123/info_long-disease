@@ -1,4 +1,4 @@
-```python
+
 # app.py
 # 실행:
 # streamlit run app.py
@@ -259,4 +259,4 @@ st.dataframe(df.describe())
 st.markdown("---")
 
 st.caption("Streamlit 기반 폐암 군집 분석 시스템")
-```
+
